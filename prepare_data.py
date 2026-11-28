@@ -4,9 +4,10 @@ import matplotlib.pyplot as plt
 from sklearn.model_selection import train_test_split
 
 df = pd.read_csv("data/real_estate.csv")
-df = df.drop(columns=["No"])
+
 pd.set_option("display.width", 200)
 pd.set_option("display.max_columns", None)
+
 print("5 dong dau:")
 print(df.head())
 print("\nKich thuoc:", df.shape)
@@ -14,13 +15,16 @@ print("\nThong tin cac cot:")
 df.info()
 print("\nThong ke mo ta:")
 print(df.describe())
-data = df.to_numpy()
-X = data[:, :-1]
-y = data[:, -1]
+
+df = df.drop(columns=["No"])
+X = df.drop(columns=["Y house price of unit area"])
+y = df["Y house price of unit area"]
 print("\nX:", X.shape)
-print(X[:5])
+print(X.head())
 print("\ny:", y.shape)
-print(y[:5])
+print(y.head())
+X = X.to_numpy()
+y = y.to_numpy()
 X_train, X_test, y_train, y_test = train_test_split(
     X, y, test_size=0.2, random_state=42
 )
